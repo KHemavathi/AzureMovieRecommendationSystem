@@ -10,7 +10,9 @@ def movie_predict(name):
     df = df2.merge(df1)
     df['overview'] = df['overview'].fillna('')
 
-    tf = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
+    # tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 2),min_df=0, stop_words='english')
+    tf = TfidfVectorizer(analyzer='word', ngram_range=(1, 2), min_df=0.0, stop_words='english')
+
     tfidf_matrix = tf.fit_transform(df['overview'])
     cos = linear_kernel(tfidf_matrix, tfidf_matrix)
     indices = pd.Series(df2.index, index=df2['title']).drop_duplicates()   # map for indices to movies
